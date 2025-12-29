@@ -34,6 +34,7 @@ const NearPlaces = memo(({places, onListItemHover}: nearbyPlacesListProps) => {
           onMouseEnter={() => handleMouseEnter(place.id)}
           onMouseLeave={handleMouseLeave}
           nameOfClass={'near-places'}
+          rating={place.rating}
         />
       ))}
     </div>

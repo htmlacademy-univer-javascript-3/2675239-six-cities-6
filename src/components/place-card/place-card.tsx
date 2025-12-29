@@ -5,6 +5,7 @@ import {changeFavoriteStatusAction} from '../../store/action.ts';
 import {getAuthorizationStatus} from '../../store/selectors.ts';
 import {AuthorizationStatus} from '../../const.ts';
 import {AppRoute} from '../../const.ts';
+import {ratingToPercent} from '../../utils/rating.ts';
 
 type PlaceCardProps = {
   id: string;
@@ -17,6 +18,7 @@ type PlaceCardProps = {
   price: number;
   type: string;
   nameOfClass: string;
+  rating: number;
 }
 
 const PlaceCard = memo((props : PlaceCardProps): JSX.Element => {
@@ -73,12 +75,12 @@ const PlaceCard = memo((props : PlaceCardProps): JSX.Element => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${ratingToPercent(props.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{props.title}</a>
+          <Link to={`/offer/${props.id}`}>{props.title}</Link>
         </h2>
         <p className="place-card__type">{props.type}</p>
       </div>

@@ -42,9 +42,20 @@ function LoginScreen(): JSX.Element {
     navigate(AppRoute.Main);
   };
 
+  const validatePassword = (pwd: string): boolean => {
+    const hasLetter = /[a-zA-Z]/.test(pwd);
+    const hasDigit = /\d/.test(pwd);
+    return hasLetter && hasDigit;
+  };
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setError(null);
+
+    if (!validatePassword(password)) {
+      setError('Password must contain at least one letter and one digit');
+      return;
+    }
 
     dispatch(loginAction({email, password}))
       .unwrap()

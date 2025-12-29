@@ -55,6 +55,7 @@ function PlaceList({onListItemHover, sortType}: placeListProps) {
           onMouseEnter={() => handleMouseEnter(place.id)}
           onMouseLeave={handleMouseLeave}
           nameOfClass={'cities'}
+          rating={place.rating}
         />
       ))}
     </div>

@@ -10,6 +10,7 @@ import {fetchOfferAction, fetchNearbyOffersAction, fetchCommentsAction, changeFa
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
 import {getCurrentOffer, getNearbyOffers, getComments, getIsOfferLoading, getAuthorizationStatus} from '../../store/selectors.ts';
+import {ratingToPercent, formatHousingType} from '../../utils/rating.ts';
 
 function OfferScreen(): JSX.Element {
   const {id: offerId} = useParams<{id: string}>();
@@ -110,14 +111,14 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${offer.rating * 100 / 5}%`}}></span>
+                  <span style={{width: `${ratingToPercent(offer.rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{offer.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offer.type.charAt(0).toUpperCase() + offer.type.slice(1)}
+                  {formatHousingType(offer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {`${offer.bedrooms} Bedroom${offer.bedrooms > 1 ? 's' : ''}`}
@@ -170,7 +171,7 @@ function OfferScreen(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <h2 className="reviews__title">Reviews <span className="reviews__amount">{comments.length}</span></h2>
                 <ReviewsList reviews={comments.slice(0, 10).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())}/>
                 {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId || ''} />}
               </section>
@@ -187,7 +188,7 @@ function OfferScreen(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearbyPlacesList places={nearbyOffers} onListItemHover={() => {}}/>
+            <NearbyPlacesList places={nearbyOffers.slice(0, 3)} onListItemHover={() => {}}/>
           </section>
         </div>
       </main>

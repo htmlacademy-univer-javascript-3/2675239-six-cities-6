@@ -60,6 +60,7 @@ describe('PlaceCard', () => {
     price: 100,
     type: 'apartment',
     nameOfClass: 'cities',
+    rating: 4.5,
   };
 
   beforeEach(() => {

@@ -26,6 +26,7 @@ function CityFavorites({city, places}: cityFavoritesProps): JSX.Element {
             price={place.price}
             title={place.title}
             type={place.type}
+            rating={place.rating}
           />
         ))}
       </div>

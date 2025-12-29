@@ -57,6 +57,7 @@ describe('FavoritesPlaceCard', () => {
     isFavorite: true,
     price: 100,
     type: 'apartment',
+    rating: 4.5,
   };
 
   beforeEach(() => {

@@ -1,4 +1,5 @@
 import {Rev} from '../../types/rev.ts';
+import {ratingToPercent} from '../../utils/rating.ts';
 
 type reviewItemProps = {
   rev: Rev;
@@ -21,14 +22,15 @@ function RevItem({rev} : reviewItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${rev.rating * 20}%`}}></span>
+            <span style={{width: `${ratingToPercent(rev.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {rev.comment}
         </p>
-        <time className="reviews__time" dateTime={date.toISOString()}>{date.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+        <time className="reviews__time" dateTime={date.toISOString()}>
+          {date.toLocaleString('en-US', { month: 'long', year: 'numeric' }).replace(',', '')}
         </time>
       </div>
     </li>
